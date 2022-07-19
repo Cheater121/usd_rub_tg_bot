@@ -14,7 +14,8 @@ class ExchangeBot:
  		url = "https://api.apilayer.com/exchangerates_data/convert?to=RUB&from=USD&amount=1"
  		headers = {"apikey": self.exch_token}
  		response = requests.get(url, headers=headers)
- 		result = response.json()	
+ 		result = response.json()
+ 		print(result)	
  		answer = result.get("result")
  		return answer
  	
@@ -34,6 +35,7 @@ class ExchangeBot:
  		params = {"offset": -1} # get only last message
  		resp = requests.get(url + method, params)
  		resp_array = resp.json().get("result")
+ 		print(resp_array)
  		chat_id = resp_array[0]["message"]["chat"]["id"]
  		return chat_id
 
