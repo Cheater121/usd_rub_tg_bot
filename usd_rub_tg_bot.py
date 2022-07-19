@@ -34,6 +34,7 @@ class ExchangeBot:
  		url = f"https://api.telegram.org/bot{self.tg_token}/"
  		params = {"offset": -1} # get only last message
  		resp = requests.get(url + method, params)
+ 		print(resp.text)
  		resp_array = resp.json().get("result")
  		print(resp_array)
  		chat_id = resp_array[0]["message"]["chat"]["id"]
