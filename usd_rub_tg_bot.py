@@ -24,7 +24,7 @@ class ExchangeBot:
  		text = self.get_exchange_rate()
  		red_apple = "\U0001F34E"
  		green_apple = "\U0001F34F"
- 		percent = text/self.last_rate - 1
+ 		percent = (text/self.last_rate - 1) * 100
  		if percent < 0:
  			apple = red_apple
  		else:
