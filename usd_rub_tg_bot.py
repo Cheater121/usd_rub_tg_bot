@@ -30,6 +30,7 @@ class ExchangeBot:
  		else:
  			apple = green_apple
  		percent = round(percent, 4)
+ 		self.last_rate = text
  		message = {"chat_id": chat_id, "text": f"Курс доллара к рублю составляет: {text}. Относительно предыдущего значения курс изменился на {percent} % {apple}"}
  		method = "sendMessage"
  		url = f"https://api.telegram.org/bot{self.tg_token}/"
