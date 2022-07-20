@@ -24,14 +24,18 @@ class ExchangeBot:
  		text = self.get_exchange_rate()
  		red_apple = "\U0001F34E"
  		green_apple = "\U0001F34F"
+ 		up = "\U00002B06"
+ 		down = "\U00002B07"
  		percent = (text/self.last_rate - 1) * 100
  		if percent < 0:
  			apple = red_apple
+ 			direction = down
  		else:
  			apple = green_apple
+ 			direction = up
  		percent = round(percent, 4)
  		self.last_rate = text
- 		message = {"chat_id": chat_id, "text": f"Курс доллара к рублю составляет: {text}. Относительно предыдущего значения курс изменился на {percent} % {apple}"}
+ 		message = {"chat_id": chat_id, "text": f"Курс доллара к рублю составляет: {text}. Относительно предыдущего значения курс изменился на {percent} % {apple}{direction}"}
  		method = "sendMessage"
  		url = f"https://api.telegram.org/bot{self.tg_token}/"
  		resp = requests.post(url + method, message)
