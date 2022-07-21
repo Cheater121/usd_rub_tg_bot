@@ -56,7 +56,8 @@ class ExchangeBot:
         		self.id = chat_id
         		return chat_id
         	except:
-        		return "-1"
+        		print("I have no chat id and tg didn't give it to me, help please")
+        		return None
         else:
         	return self.id
 
