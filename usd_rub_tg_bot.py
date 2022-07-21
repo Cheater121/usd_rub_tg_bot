@@ -5,6 +5,7 @@ from tokens import tg_token, exch_token
 
 
 class ExchangeBot:
+    id = None
     last_rate = 55
     red_apple = "\U0001F34E"
     green_apple = "\U0001F34F"
@@ -44,13 +45,20 @@ class ExchangeBot:
         return resp.text
 
     def get_chat_id(self):
-        method = "getUpdates"
-        url = f"https://api.telegram.org/bot{self.tg_token}/"
-        params = {"offset": -1}  # get only last message
-        resp = requests.get(url + method, params)
-        resp_array = resp.json().get("result")
-        chat_id = resp_array[0]["message"]["chat"]["id"]
-        return chat_id
+        if self.id is None:
+        	method = "getUpdates"
+        	url = f"https://api.telegram.org/bot{self.tg_token}/"
+        	params = {"offset": -1}  # get only last message
+        	resp = requests.get(url + method, params)
+        	resp_array = resp.json().get("result")
+        	try: 
+        		chat_id = resp_array[0]["message"]["chat"]["id"]
+        		self.id = chat_id
+        		return chat_id
+        	except:
+        		return "-1"
+        else:
+        	return self.id
 
 
 bot = ExchangeBot(tg_token, exch_token)
