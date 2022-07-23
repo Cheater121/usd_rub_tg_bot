@@ -46,31 +46,33 @@ class ExchangeBot:
 
     def get_chat_id(self):
         if self.id is None:
-        	method = "getUpdates"
-        	url = f"https://api.telegram.org/bot{self.tg_token}/"
-        	params = {"offset": -1}  # get only last message
-        	resp = requests.get(url + method, params)
-        	resp_array = resp.json().get("result")
-        	try: 
-        		chat_id = resp_array[0]["message"]["chat"]["id"]
-        		self.id = chat_id
-        		return chat_id
-        	except:
-        		print("I have no chat id and tg didn't give it to me, help please")
-        		return None
+            method = "getUpdates"
+            url = f"https://api.telegram.org/bot{self.tg_token}/"
+            params = {"offset": -1}  # get only last message
+            resp = requests.get(url + method, params)
+            resp_array = resp.json().get("result")
+            try:
+                chat_id = resp_array[0]["message"]["chat"]["id"]
+                self.id = chat_id
+                return chat_id
+            except:
+                print("I have no chat id and tg didn't give it to me, help please")
+                return None
         else:
-        	return self.id
+            return self.id
 
 
 bot = ExchangeBot(tg_token, exch_token)
 while True:
-    now = datetime.datetime.now().time()
+    now = datetime.datetime.now()
     start = datetime.time(10, 0, 0, 0)
     stop = datetime.time(20, 0, 0, 0)
-    if start < now < stop:
+    if start < now.time() < stop and now.weekday() not in (5, 6):
         print(now)
         chat_id = bot.get_chat_id()
         exchange_rate = bot.get_exchange_rate()
         text = bot.make_text(exchange_rate)
         bot.send_message(chat_id, text)
         sleep(60 * 60 * 3)
+    print("weekend")
+    sleep(60)
