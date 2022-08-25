@@ -26,15 +26,17 @@ class ExchangeBot:
 
     def make_text(self, exchange_rate):
         percent = (exchange_rate / self.last_rate - 1) * 100
-        percent = round(percent, 4)
+        percent = round(percent, 2)
         if percent < 0:
             apple = self.red_apple
             direction = self.down
+            symbol = ""
         else:
             apple = self.green_apple
             direction = self.up
+            symbol = "+"
         self.last_rate = exchange_rate
-        text = f"Курс доллара к рублю составляет: {exchange_rate}. Относительно предыдущего значения курс изменился на {percent}% {apple}{direction}"
+        text = f"1$ = {round(exchange_rate,2)}₽, {symbol}{percent}% {apple}{direction}"
         return text
 
     def send_message(self, chat_id, text):
