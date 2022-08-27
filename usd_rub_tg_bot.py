@@ -6,11 +6,13 @@ from tokens import tg_token, exch_token
 
 class ExchangeBot:
     id = None
-    last_rate = 55
+    last_rate = 60
     red_apple = "\U0001F34E"
     green_apple = "\U0001F34F"
+    ice = "\U0001F9CA"
     up = "\U00002B06"
     down = "\U00002B07"
+    flat = "\U00002195"
 
     def __init__(self, tg_token, exch_token):
         self.tg_token = tg_token
@@ -31,6 +33,10 @@ class ExchangeBot:
             apple = self.red_apple
             direction = self.down
             symbol = ""
+        elif percent == 0:
+        	apple = self.ice
+        	direction = self.flat
+        	symbol = ""
         else:
             apple = self.green_apple
             direction = self.up
