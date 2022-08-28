@@ -34,9 +34,9 @@ class ExchangeBot:
             direction = self.down
             symbol = ""
         elif percent == 0:
-        	apple = self.ice
-        	direction = self.flat
-        	symbol = ""
+            apple = self.ice
+            direction = self.flat
+            symbol = ""
         else:
             apple = self.green_apple
             direction = self.up
