@@ -6,7 +6,7 @@ from tokens import tg_token, exch_token
 
 class ExchangeBot:
     id = None
-    last_rate = 70
+    last_rate = 75
     red_apple = "\U0001F34E"
     green_apple = "\U0001F34F"
     ice = "\U0001F9CA"
@@ -44,6 +44,9 @@ class ExchangeBot:
 
     def make_text(self, exchange_rate):
         try:
+            if exchange_rate is None:
+            	text = "\U0001F198\U0001F198\U0001F198 \U0001F4B1\U00002620"
+            	return text
             percent = (exchange_rate / self.last_rate - 1) * 100
             percent = round(percent, 2)
             if percent < 0:
