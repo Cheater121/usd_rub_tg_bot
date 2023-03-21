@@ -39,7 +39,7 @@ class ExchangeBot:
             exchange_rate = result.get("result")
             return exchange_rate
         except Exception as e:
-            self.logger.exception(e)
+            self.logger.exception(f"{e}\nResponse text: {response.text}")
             return None
 
     def make_text(self, exchange_rate):
@@ -70,14 +70,15 @@ class ExchangeBot:
 
     def send_message(self, chat_id, text):
         try:
-            message = {"chat_id": chat_id, "text": text}
-            method = "sendMessage"
-            url = f"https://api.telegram.org/bot{self.tg_token}/"
-            resp = requests.post(url + method, message)
-            resp.raise_for_status()
-            return resp.text
+            if chat_id is not None:
+            	message = {"chat_id": chat_id, "text": text}
+            	method = "sendMessage"
+            	url = f"https://api.telegram.org/bot{self.tg_token}/"
+            	resp = requests.post(url + method, message)
+            	resp.raise_for_status()
+            	return resp.text
         except Exception as e:
-            self.logger.exception(e)
+            self.logger.exception(f"{e}\nResponse text: {resp.text}")
             return None
 
     def get_chat_id(self):
@@ -93,7 +94,7 @@ class ExchangeBot:
                 self.id = chat_id
                 return chat_id
             except Exception as e:
-                self.logger.exception(e)
+                self.logger.exception(f"{e}\nResponse text: {resp.text}")
                 return None
         else:
             return self.id
